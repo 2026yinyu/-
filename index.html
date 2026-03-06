@@ -106,6 +106,10 @@
         <h1>淫欲宗宗门信息档案</h1>
         <p>淫欲宗弟子信息整理站。</p>
         <div class="hero-stats">
+          <div class="hero-stats">
+  <div class="hero-stat"><strong id="statCount">0</strong><span>当前成员数</span></div>
+  <div class="hero-stat"><strong id="statShown">0</strong><span>当前显示数</span></div>
+</div>
         </div>
       </div>
 
@@ -249,7 +253,13 @@
         const matchRealm = !realmFilter.value || member.realm === realmFilter.value;
         return matchKeyword && matchGender && matchRoot && matchRealm;
       });
-      if(sortMode === "age"){ list = [...list].sort((a,b) => Number(a.age || 0) - Number(b.age || 0)); }
+    if(sortMode === "age"){
+  list = [...list].sort((a,b) => {
+    const ageA = parseInt(a.age) || 9999;
+    const ageB = parseInt(b.age) || 9999;
+    return ageA - ageB;
+  });
+}
       else if(sortMode === "realm"){ list = [...list].sort((a,b) => (realmRank[b.realm] || 0) - (realmRank[a.realm] || 0)); }
       return list;
     }
